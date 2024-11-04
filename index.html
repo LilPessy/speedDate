@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpeeDate ACR ACG</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body{
+            width: 100vw;
+            height: 100vh;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .container{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container h1{
+            font-size: 200px;
+        }
+
+        .buttons{
+            position: absolute;
+            bottom: 30px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .buttons button{
+            width: 50px;
+            height: 40px;
+            margin: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .buttons button img{
+            width: 50%;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="time">1:30</h1>
+    </div>
+    <div class="buttons">
+        <button class="start"><img src="https://cdn.icon-icons.com/icons2/1615/PNG/512/3706872-control-music-play-play-music-play-sound-start_108717.png"></button>
+        <button class="stop"><img src="https://cdn.icon-icons.com/icons2/1615/PNG/512/3706879-control-music-sound-stop-stop-sound_108708.png"></button>
+    </div>
+
+    <script>
+        var start = document.querySelector(".start");
+        var title = document.querySelector(".time");
+        var started = false;
+        var timer;
+        var audio = new Audio('gong.mp3');
+        time = 10;
+
+        start.addEventListener("click", function(e){
+            if(!started){
+                started = true;
+                timer = setInterval(function(){
+                    var minutes = Math.floor(time / 60);
+                    let seconds = time % 60;
+                    seconds = seconds < 10 ? '0' + seconds : seconds;
+                    title.innerHTML = minutes + ":" + seconds;
+                    if(time>0){
+                        time--;
+                    }else{
+                        audio.play();
+                        time = 90;
+                    }
+                },1000);
+            }
+        })
+        var stop = document.querySelector(".stop");
+        stop.addEventListener("click", function(e){
+            clearInterval(timer);
+            started = false;
+        })
+    </script>
+</body>
+</html>
