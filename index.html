@@ -66,23 +66,33 @@
         var start = document.querySelector(".start");
         var title = document.querySelector(".time");
         var started = false;
+        var playes = false;
         var timer;
         var audio = new Audio('gong.mp3');
-        time = 10;
+        time = 95;
 
         start.addEventListener("click", function(e){
             if(!started){
                 started = true;
                 timer = setInterval(function(){
-                    var minutes = Math.floor(time / 60);
-                    let seconds = time % 60;
-                    seconds = seconds < 10 ? '0' + seconds : seconds;
-                    title.innerHTML = minutes + ":" + seconds;
-                    if(time>0){
+                    if(time>5){
+                        played = false;
+                        var minutes = Math.floor((time-5) / 60);
+                        let seconds = (time-5) % 60;
+                        seconds = seconds < 10 ? '0' + seconds : seconds;
+                        title.innerHTML = minutes + ":" + seconds;
                         time--;
                     }else{
-                        audio.play();
-                        time = 90;
+                        if(!played){
+                            played = true;
+                            audio.play();
+                        }
+                        title.innerHTML = "CAMBIO";
+                        if(time>0){
+                            time--;
+                        }else{
+                            time = 95;
+                        }
                     }
                 },1000);
             }
